@@ -16,11 +16,12 @@
         pkgs = import nixpkgs { inherit system overlays; };
 
         nativeBuildInputs = with pkgs; [ ];
-        buildInputs = with pkgs; [ nodejs_18 ];
+        buildInputs = with pkgs; [ ];
+        packages = with pkgs; [ nodejs_18 ];
       in
       with pkgs;
       {
-        devShells.default = mkShell { inherit buildInputs nativeBuildInputs; };
+        devShells.default = mkShell { inherit packages buildInputs nativeBuildInputs; };
 
         formatter = pkgs.nixfmt-rfc-style;
       }

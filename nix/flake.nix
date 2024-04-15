@@ -1,8 +1,11 @@
 {
+  description = "A nix-flake for nix development environments";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
+
   outputs =
     {
       self,
@@ -17,10 +20,15 @@
 
         nativeBuildInputs = with pkgs; [ ];
         buildInputs = with pkgs; [ ];
+        packages = with pkgs; [
+          statix
+          vulnix
+          cachix
+          nixfmt-rfc-style
+        ];
       in
-      with pkgs;
       {
-        devShells.default = mkShell { inherit buildInputs nativeBuildInputs; };
+        devShells.default = pkgs.mkShell { inherit packages buildInputs nativeBuildInputs; };
 
         formatter = pkgs.nixfmt-rfc-style;
       }
