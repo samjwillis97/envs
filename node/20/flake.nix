@@ -23,6 +23,9 @@
       {
         devShells.default = mkShell { 
           inherit packages buildInputs nativeBuildInputs;
+          shellHook = ''
+            export PATH="$PATH:$PWD/node_modules/.bin"
+          '';
         };
 
         formatter = pkgs.nixfmt-rfc-style;

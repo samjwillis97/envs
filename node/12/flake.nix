@@ -28,7 +28,12 @@
         packages = [ old_pkgs.nodejs-12_x ];
       in
       {
-        devShells.default = pkgs.mkShell { inherit packages buildInputs nativeBuildInputs; };
+        devShells.default = pkgs.mkShell {
+          inherit packages buildInputs nativeBuildInputs;
+          shellHook = ''
+            export PATH="$PATH:$PWD/node_modules/.bin"
+          '';
+        };
 
         formatter = pkgs.nixfmt-rfc-style;
       }
